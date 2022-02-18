@@ -35,7 +35,7 @@ classdef ACC_params
     function obj = ACC_params()      
       obj.N=200; % number of fourier modes
       obj.Lx=3200000; % zonal domain size
-      obj.Ly=2000000; % meridional domain size
+      obj.Ly=1600000; % meridional domain size
       obj.H1=1500; % mean upper layer thickness
       obj.H2=2500; % mean bottom layer thickness
       obj.Hb=1000; % ridge height
