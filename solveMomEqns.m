@@ -6,25 +6,12 @@
 %%%
 
 %%% Create parameter object with default parameters
-function [U, psi] = solveMomEqns (tau)
+function [U, psi] = solveMomEqns (j)
 params = ACC_params();
-
+Ly=params.Ly; % meridional domain size
+dy=6250;
 %%% Modify parameters as needed
-%tau
-%for q= [0.005 0.010 0.017 0.03 0.05 0.10 0.170 0.30]
-%[0.001 0.0017 0.003 0.005 0.01 0.017 0.03 0.05 0.1 0.17 0.3 0.5]
-%K
-%for j= [25 50 100 146 200 250 300 310 320 395 405 430 445 495 505 535 540]
-%[20 100 400 440 480 520 560 600 640 740]
-%nu
-%.*sin(pi.*y0./Ly).^2
-%for y0 = yy_h
-%for wsize= [40000.0 50000.0 60000.0 70000.0 80000.0 100000.0]
-%for hsize= [400 450 500 600 650 750 1000 2000]
-%for drr = [1e-4 1.5e-4 2e-4 2.5e-4 3e-4]
-%Ly=params.Ly;
-%params.tau = 0.1;
-
+params.tau = .1.*sin(pi.*dy.*j./Ly).^2;
 params.K = 600;
 params.nu = 2000;
 params.Wb=500000;
@@ -96,10 +83,3 @@ psi = N*real(ifft(psihat,[],2));
 
 %save("Y_"+num2str(y0)+".mat",'Hb','Wb','tau','psihat','psi','etabhat','etab','H1','H2','k','K','ifs','tfs','nu','Tbc','Tbt','rb','res','U','Total','y0','x')
     %,"tfs","ifs","tau","K","nu","k","etabhat")
-%end
-%save("refernce_nu_"+num2str(tau)+"0.mat",'Hb','Wb','tau','psihat','psi','etabhat','etab','H1','H2','k','K','x','ifs','tfs','nu','Tbc','Tbt','rb','res','U')
-%end
-%end
-%end
-%end
-%end
