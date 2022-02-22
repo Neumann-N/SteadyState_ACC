@@ -6,16 +6,7 @@
 %%%
 
 %%% Create parameter object with default parameters
-function [U, psi] = solveMomEqns (j)
-params = ACC_params();
-Ly=params.Ly; % meridional domain size
-dy=6250;
-%%% Modify parameters as needed
-params.tau = .1.*sin(pi.*dy.*j./Ly).^2;
-params.K = 600;
-params.nu = 2000;
-params.Wb=500000;
-%params.Taabw = 0;
+function [U, psi] = solveMomEqns (params)
 
 %%% Solve for mean flow
 U = ACC_optimizer (params);
