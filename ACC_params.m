@@ -33,7 +33,7 @@ classdef ACC_params
   methods
 %    
     function obj = ACC_params()      
-      obj.N=200; % number of fourier modes
+      obj.N=512; % number of fourier modes
       obj.Lx=3200000; % zonal domain size
       obj.Ly=1600000; % meridional domain size
       obj.H1=1500; % mean upper layer thickness
@@ -46,15 +46,11 @@ classdef ACC_params
       obj.rg=.01; % reduced gravity
       obj.rho0=1000; % density
       obj.tau = 0.1; % wind stress
-      obj.Taabw = 0.1; % AABW export
+      obj.Taabw = 0; % AABW export
       obj.rb=2e-4; % drag velocity
       obj.nu=1000; % Eddy viscosity
       obj.K=400; % Eddy diffusion
       obj.beta=1.5e-11; % coriolis parameter gradient
-      obj.Ld1=sqrt(obj.rg*obj.H1)/abs(obj.f); % upper layer deformation radius
-      obj.Ld2=sqrt(obj.rg*obj.H2)/abs(obj.f); % lower layer deformation radius
-      obj.Ld1sq=1/obj.Ld1^2; % 1 over squared deformation radius for calculation
-      obj.Ld2sq=1/obj.Ld2^2;
     end
 %        
   end
