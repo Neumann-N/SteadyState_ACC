@@ -20,10 +20,9 @@ Lx=params.Lx; % meridional domain size
 
 %%% Modify parameters as needed
 params.N = Nx;
-params.Wb = 300000;
+params.Wb = 150000;
 params.rb = 4e-4;
 params.Hb = 1000;
-params.rg = 1e-2;
 
 %%% Initialize Arrays %%%%
 dy = Ly/Ny;
