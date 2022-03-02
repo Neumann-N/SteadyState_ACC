@@ -22,14 +22,22 @@ function U =  ACC_optimizer (params)
   nu=params.nu; % Eddy viscosity
   K=params.K; % Eddy diffusion
   beta=params.beta; % coriolis parameter gradient   
-  Ld1sq=params.Ld1sq; % 1 over squared deformation radius for calculation
-  Ld2sq=params.Ld2sq;
+  rg = params.rg; % reduced gravity
+  f = params.f; % Coriolis parameter
+  H1 = params.H1; % upper layer thickness
+  H2 = params.H2; % lower layer thickness
+  
+  %%% 1 over squared deformation radius for calculation
+  Ld1=sqrt(rg*H1)/abs(f); %%% upper layer deformation radius
+  Ld2=sqrt(rg*H2)/abs(f); %%% lower layer deformation radius
+  Ld1sq=1/Ld1^2; 
+  Ld2sq=1/Ld2^2;
 
   % grids in real and spectral space    
   [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
     
   %%% Call lsqnonlin to optimize solution for U
-  U0=[0.05 0.001];
+  U0=[0.05 0.01];
   Umin = [-1 -1];
   Umax = [1 1];
   myoptions = optimoptions(@lsqnonlin, ... 
@@ -37,8 +45,8 @@ function U =  ACC_optimizer (params)
       'FunctionTolerance',1e-18, ...
       'OptimalityTolerance',1e-18, ...
       'MaxFunctionEvaluations',10000, ...
-      'Algorithm','levenberg-marquardt', ...
-      'Display','iter');
+      'Algorithm','trust-region-reflective', ... % 'levenberg-marquardt', ...
+      'Display','none');
   [U,resnorm] = lsqnonlin(@fun,U0,Umin,Umax,myoptions);
 
   function res = fun(U)

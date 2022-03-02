@@ -13,9 +13,17 @@ function [c1,c2,c3,c4,c5,z1,z2] = calc_sw_coeffs(U,k,params)
   nu=params.nu; % Eddy viscosity
   K=params.K; % Eddy diffusion
   beta=params.beta; % coriolis parameter gradient   
-  Ld1sq=params.Ld1sq; % 1 over squared deformation radius for calculation
-  Ld2sq=params.Ld2sq;
-
+  rg = params.rg; % reduced gravity
+  f = params.f; % Coriolis parameter
+  H1 = params.H1; % upper layer thickness
+  H2 = params.H2; % lower layer thickness
+  
+  %%% 1 over squared deformation radius for calculation
+  Ld1=sqrt(rg*H1)/abs(f); %%% upper layer deformation radius
+  Ld2=sqrt(rg*H2)/abs(f); %%% lower layer deformation radius
+  Ld1sq=1/Ld1^2; 
+  Ld2sq=1/Ld2^2;
+  
   % compute coefficients
   c1=-U(1)*k.^2+beta-Ld1sq*U(2)+1i*k.^3*nu+1i*k*Ld1sq*K;
   c2=U(1)*Ld1sq-1i*k*Ld1sq*K;
