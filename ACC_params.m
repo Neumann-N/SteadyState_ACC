@@ -21,13 +21,10 @@ classdef ACC_params
     tau
     Taabw
     rb
-    nu
+    nu1
+    nu2
     K
-    beta
-    Ld1
-    Ld2
-    Ld1sq
-    Ld2sq
+    beta 
  end
 %  
   methods
@@ -48,7 +45,8 @@ classdef ACC_params
       obj.tau = 0.1; % wind stress
       obj.Taabw = 0; % AABW export
       obj.rb=2e-4; % drag velocity
-      obj.nu=1000; % Eddy viscosity
+      obj.nu1=1000; % Eddy viscosity
+      obj.nu2=1000; % Eddy viscosity
       obj.K=400; % Eddy diffusion
       obj.beta=1.5e-11; % coriolis parameter gradient
     end

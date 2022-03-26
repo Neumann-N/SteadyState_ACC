@@ -10,7 +10,8 @@ function [c1,c2,c3,c4,c5,z1,z2] = calc_sw_coeffs(U,k,params)
   H2=params.H2; % mean bottom layer thickness  
   f=params.f; % coriolois parameter  
   rb=params.rb; % drag velocity    
-  nu=params.nu; % Eddy viscosity
+  nu1=params.nu1; % Eddy viscosity
+  nu2=params.nu2; % Eddy viscosity
   K=params.K; % Eddy diffusion
   beta=params.beta; % coriolis parameter gradient   
   rg = params.rg; % reduced gravity
@@ -24,11 +25,13 @@ function [c1,c2,c3,c4,c5,z1,z2] = calc_sw_coeffs(U,k,params)
   Ld1sq=1/Ld1^2; 
   Ld2sq=1/Ld2^2;
   
+  nu2
+  
   % compute coefficients
-  c1=-U(1)*k.^2+beta-Ld1sq*U(2)+1i*k.^3*nu+1i*k*Ld1sq*K;
+  c1=-U(1)*k.^2+beta-Ld1sq*U(2)+1i*k.^3*nu1+1i*k*Ld1sq*K;
   c2=U(1)*Ld1sq-1i*k*Ld1sq*K;
   c3=U(2)*Ld2sq-1i*k*Ld2sq*K;
-  c4=-U(2)*k.^2+beta-Ld2sq*U(1)+(1i*k*rb)/H2+1i*k.^3*nu+1i*k*Ld2sq*K;
+  c4=-U(2)*k.^2+beta-Ld2sq*U(1)+(1i*k*rb)/H2+1i*k.^3*nu2+1i*k*Ld2sq*K;
   c5=(U(2)*f)/H2;
   z1=-c2./c1;
   z2=-c5./(c3.*z1+c4);

@@ -19,7 +19,6 @@ function U =  ACC_optimizer (params)
   tau=params.tau; % wind stress
   rho0=params.rho0; % density
   rb=params.rb; % drag velocity    
-  nu=params.nu; % Eddy viscosity
   K=params.K; % Eddy diffusion
   beta=params.beta; % coriolis parameter gradient   
   rg = params.rg; % reduced gravity
@@ -59,10 +58,6 @@ function U =  ACC_optimizer (params)
     ifs=H2*Ld2sq*real(sum(1i*k.*abs(z2).^2.*abs(etabhat).^2.*conj(z1),2));
     res=[tau/rho0 - rb*U(2) - tfs, ...
          -rb*U(2)+H2*K*Ld2sq*(U(1)-U(2))+ifs-tfs];
-
-%     disp(['test:',num2str(U(1)),' ',num2str(U(2)),' ',num2str(tau/rho0 - rb*U(2) - tfs)])
-%     disp(['test2:',num2str(-rb*U(2)/H2),' ',num2str(-rb*U(2)/H2+K*Ld2sq*(U(1)-U(2))+ifs/H2-tfs/H2)]);
-
   end
 
 end

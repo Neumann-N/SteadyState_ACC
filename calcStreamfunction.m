@@ -3,8 +3,8 @@
 clear all;
 
 %%% Max wind stress
-tau_max = 0.1;
-K_max = 1000;
+tau_max = 0.3;
+K_max = 400;
 nu_max = 2000;
 
 %%% Grid size
@@ -40,7 +40,7 @@ Psi = zeros(2,Ny,Nx);
 for j = 1:Ny
 
   params.tau = tau_max.*sin(pi.*yy(j)./Ly).^2;
-  params.K = K_max*(params.tau/tau_max).^(1);
+  params.K = K_max;%*(params.tau/tau_max).^(1);
   params.nu = nu_max; %*params.tau/tau_max;
   [U, psi] = solveMomEqns (params);
   U_all(:,j) = U(:);
