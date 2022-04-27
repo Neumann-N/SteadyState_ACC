@@ -24,6 +24,7 @@ classdef ACC_params
     nu1
     nu2
     K
+    Ky
     beta 
  end
 %  
@@ -48,6 +49,7 @@ classdef ACC_params
       obj.nu1=1000; % Eddy viscosity
       obj.nu2=1000; % Eddy viscosity
       obj.K=400; % Eddy diffusion
+      obj.Ky=0; %%% Meridional eddy diffusivity
       obj.beta=1.5e-11; % coriolis parameter gradient
     end
 %        

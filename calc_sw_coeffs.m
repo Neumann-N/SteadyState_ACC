@@ -23,9 +23,7 @@ function [c1,c2,c3,c4,c5,z1,z2] = calc_sw_coeffs(U,k,params)
   Ld1=sqrt(rg*H1)/abs(f); %%% upper layer deformation radius
   Ld2=sqrt(rg*H2)/abs(f); %%% lower layer deformation radius
   Ld1sq=1/Ld1^2; 
-  Ld2sq=1/Ld2^2;
-  
-  nu2
+  Ld2sq=1/Ld2^2;  
   
   % compute coefficients
   c1=-U(1)*k.^2+beta-Ld1sq*U(2)+1i*k.^3*nu1+1i*k*Ld1sq*K;

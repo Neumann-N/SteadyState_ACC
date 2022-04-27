@@ -18,7 +18,7 @@ function [U, psi] = solveMomEqns (params)
   Wb=params.Wb; % ridge width
   Xb=params.Xb; % ridge longitude
   tau = params.tau;
-  K = params.K;
+  Ky = params.Ky;
   rho0 = params.rho0;
   rb = params.rb;
   H2 = params.H2;
@@ -46,11 +46,11 @@ function [U, psi] = solveMomEqns (params)
   tfs = -f*real(sum(1i*k.*psihat(2,:).*conj(etabhat),2));
   ifs = H2*Ld2sq*real(sum(1i*k.*psihat(2,:).*conj(psihat(1,:)),2));
   res=[tau/rho0 - rb*U(2) - tfs, ...
-          -rb*U(2)+H2*K*Ld2sq*(U(1)-U(2))+ifs-tfs];
+          -rb*U(2)+H2*Ky*Ld2sq*(U(1)-U(2))+ifs-tfs];
   if (sum(abs(res))>1e-10)
     error('Solution not converged');
   end
-             
+  
 %%% Plot the standng wave solution
 %Tbc=H1.*(U(1)-U(2)).*Ly;
 %Tbt=(H1+H2).*U(2).*Ly;
