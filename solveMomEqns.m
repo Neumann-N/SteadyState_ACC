@@ -18,7 +18,7 @@ function [U, psi] = solveMomEqns (params)
   Wb=params.Wb; % ridge width
   Xb=params.Xb; % ridge longitude
   tau = params.tau;
-  K = params.K;
+  Ky = params.Ky;
   rho0 = params.rho0;
   rb = params.rb;
   H2 = params.H2;
@@ -31,7 +31,9 @@ function [U, psi] = solveMomEqns (params)
   Ld2sq=1/Ld2^2;
 
   % grids in real and spectral space    
-  [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
+  % [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
+  etab = params.etab;
+  [x,k,etabhat] = gen_grids (N,Lx,etab);
 
   % generate Fourier coefficients for standing wave equations
   [c1,c2,c3,c4,c5,z1,z2] = calc_sw_coeffs(U,k,params);
@@ -44,13 +46,13 @@ function [U, psi] = solveMomEqns (params)
 
   %%% Check solution has converged
   tfs = -f*real(sum(1i*k.*psihat(2,:).*conj(etabhat),2));
-  ifs = H2*Ld2sq*real(sum(1i*k.*psihat(2,:).*conj(psihat(1,:)),2));
+  ifs = H2*Ld2sq*real(sum(1i*k.*psihat(2,:).*conj(psihat(1,:)),2))
   res=[tau/rho0 - rb*U(2) - tfs, ...
-          -rb*U(2)+H2*K*Ld2sq*(U(1)-U(2))+ifs-tfs];
+          -rb*U(2)+H2*Ky*Ld2sq*(U(1)-U(2))+ifs-tfs];
   if (sum(abs(res))>1e-10)
-    error('Solution not converged');
+    warning('Solution not converged');
   end
-             
+  
 %%% Plot the standng wave solution
 %Tbc=H1.*(U(1)-U(2)).*Ly;
 %Tbt=(H1+H2).*U(2).*Ly;

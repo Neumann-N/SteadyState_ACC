@@ -19,8 +19,7 @@ function U =  ACC_optimizer (params)
   tau=params.tau; % wind stress
   rho0=params.rho0; % density
   rb=params.rb; % drag velocity    
-  nu=params.nu; % Eddy viscosity
-  K=params.K; % Eddy diffusion
+  Ky=params.Ky; % Eddy diffusion  
   beta=params.beta; % coriolis parameter gradient   
   rg = params.rg; % reduced gravity
   f = params.f; % Coriolis parameter
@@ -34,7 +33,9 @@ function U =  ACC_optimizer (params)
   Ld2sq=1/Ld2^2;
 
   % grids in real and spectral space    
-  [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
+  % [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
+  etab = params.etab;
+  [x,k,etabhat] = gen_grids (N,Lx,etab);
     
   %%% Call lsqnonlin to optimize solution for U
   U0=[0.05 0.01];
@@ -58,11 +59,7 @@ function U =  ACC_optimizer (params)
     tfs=-f*real(sum(1i*k.*abs(etabhat).^2.*z2,2));
     ifs=H2*Ld2sq*real(sum(1i*k.*abs(z2).^2.*abs(etabhat).^2.*conj(z1),2));
     res=[tau/rho0 - rb*U(2) - tfs, ...
-         -rb*U(2)+H2*K*Ld2sq*(U(1)-U(2))+ifs-tfs];
-
-%     disp(['test:',num2str(U(1)),' ',num2str(U(2)),' ',num2str(tau/rho0 - rb*U(2) - tfs)])
-%     disp(['test2:',num2str(-rb*U(2)/H2),' ',num2str(-rb*U(2)/H2+K*Ld2sq*(U(1)-U(2))+ifs/H2-tfs/H2)]);
-
+         -rb*U(2)+H2*Ky*Ld2sq*(U(1)-U(2))+ifs-tfs];
   end
 
 end
