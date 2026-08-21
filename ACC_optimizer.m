@@ -33,7 +33,9 @@ function U =  ACC_optimizer (params)
   Ld2sq=1/Ld2^2;
 
   % grids in real and spectral space    
-  [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
+  % [x,k,etab,etabhat] = gen_grids (N,Lx,Hb,Xb,Wb);
+  etab = params.etab;
+  [x,k,etabhat] = gen_grids (N,Lx,etab);
     
   %%% Call lsqnonlin to optimize solution for U
   U0=[0.05 0.01];

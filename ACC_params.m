@@ -14,6 +14,10 @@ classdef ACC_params
     Hb
     Wb
     Xb
+    Xb2
+    double_ridge
+    Hrms
+    etab
     f
     g
     rg
@@ -34,11 +38,14 @@ classdef ACC_params
       obj.N=512; % number of fourier modes
       obj.Lx=3200000; % zonal domain size
       obj.Ly=1600000; % meridional domain size
-      obj.H1=1500; % mean upper layer thickness
-      obj.H2=2500; % mean bottom layer thickness
+      obj.H1=2000; % mean upper layer thickness
+      obj.H2=2000; % mean bottom layer thickness
       obj.Hb=1000; % ridge height
       obj.Wb=150000; % ridge width
+      obj.Hrms=100; % RMS topog amplitude
       obj.Xb=0; % ridge longitude
+      obj.Xb2=0; % second ridge longitude
+      obj.double_ridge = false;
       obj.f=-1e-4; % coriolis parameter
       obj.g=9.81; % reduced gravity
       obj.rg=.01; % reduced gravity
